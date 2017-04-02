@@ -8,6 +8,7 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^model_sample/', include('model_sample.urls', namespace='model_sample')),
 ]
 
 # 以下、debug-toolbar用の設定。

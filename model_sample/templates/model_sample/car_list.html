@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}many to one sample{% endblock title %}
+
+{% block content %}
+    <div class="container">
+        <h2>Many to one sample</h2>
+        <ul class="breadcrumb">
+            <li><a href="{% url 'model_sample:manufacturer_list' %}">manufacturer_list</a></li>
+            <li>car_list</li>
+        </ul>
+    </div>
+
+    <div class="container">
+        <h4>{{ manufacturer.name }} car list</h4>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>car_name</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for car in manufacturer.car_set.all %}
+                    <tr>
+                        <th>{{ car.id }}</th>
+                        <th>{{ car.name }}</th>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock content %}
