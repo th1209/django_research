@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Many to many sample{% endblock title %}
+
+{% block content %}
+    <div class="container">
+        <h2>Many to many sample</h2>
+        <ul class="breadcrumb">
+            <li>top</li>
+        </ul>
+    </div>
+
+    <!-- Articleの一覧 -->
+    <div class="container">
+        <h4>Articles</h4>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>title</th>
+                    <th>text</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for article in articles %}
+                    <tr>
+                        <th>{{ article.id }}</th>
+                        <th><a href="{% url 'model_sample:article_detail' article_id=article.id %}">{{ article.title }}</a></th>
+                        <th>{{ article.text }}</th>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Tagの一覧 -->
+    <div class="container">
+        <h4>Tags</h4>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>name</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for tag in tags %}
+                    <tr>
+                        <th>{{ tag.id }}</th>
+                        <th><a href="{% url 'model_sample:tag_detail' tag_id=tag.id %}">{{ tag.name }}</a></th>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock content %}

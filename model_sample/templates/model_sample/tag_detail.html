@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Many to many sample{% endblock title %}
+
+{% block content %}
+    <div class="container">
+        <h2>Many to many sample</h2>
+        <ul class="breadcrumb">
+            <li><a href="{% url 'model_sample:article_and_tag_list' %}">top</a></li>
+            <li>tag_detail</li>
+        </ul>
+    </div>
+
+    <div class="container">
+        <h4>Tag name:</h4>
+        {{ tag.name }}
+        <br/>
+
+        <h4>Relate articles:</h4>
+        {% if article_tags %}
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>title</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for article_tag in article_tags %}
+                        <tr>
+                            <th>{{ article_tag.article.id }}</th>
+                            <th><a href="{% url 'model_sample:article_detail' article_id=article_tag.article.id %}">
+                                {{ article_tag.article.title }}
+                            </a></th>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            empty
+        {% endif %}
+    </div>
+{% endblock content %}
