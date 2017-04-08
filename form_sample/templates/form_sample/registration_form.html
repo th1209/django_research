@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block title %}regstration form sample{% endblock title %}
+
+{% block content %}
+    <div class="container" style="padding: 10px">
+        <h2>User Registration Form Sample</h2>
+    </div>
+
+    <!--
+        注意:
+          以下の例では、個々のフォームのプロパティを、直接コーディングしている。
+          本来であれば、フォームの描画はもっと楽な方法を取るべきである。
+          こうした理由は、今回のサンプルが練習用であることと、
+          bootstrapを使う上で、クラス指定が必要であることを考慮したため。
+
+        代案:
+        * Widgetクラスを継承して、モデル側でクラスを調整する方法。
+          * この方法だと、モデルとテンプレートが密結合になってしまう問題点がある。
+        * Django bootstrap formを使う方法。
+          * 参考サイトを参照。実運用では、これを使うといいだろう。
+    -->
+
+    <!--エラーがあれば、エラーを表示。-->
+    {% if message %}
+        <p class="bg-danger">{{ message }}</p>
+    {% endif %}
+
+    <div class="container" style="padding: 10px">
+        <form action="{% url 'form_sample:create_user' %}" method='post' class="form-horizontal" style="margin-bottom:15px">
+
+            <!-- DjangoのCSRF対策で、以下トークンの送信が必要。 -->
+            {% csrf_token %}
+
+            <!-- メールアドレス -->
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="email">
+                    {{ form.email_address.label }}
+                </label>
+                <div class="col-sm-6">
+                    <input type="email" name="email_address" id="email" class="form-control">
+                </div>
+            </div>
+
+            <!-- パスワード -->
+            <div class="form-group">
+                <label class="control-label col-sm-2">
+                    {{ form.password_1.label }}
+                </label>
+                <div class="col-sm-offset2 col-sm-6">
+                    <input type="password" name="password_1" class="form-control" style="margin-bottom:5px">
+                    <input type="password" name="password_2" class="form-control" placeholder="confirm your password.">
+                </div>
+            </div>
+
+            <!-- 氏名 -->
+            <div class="form-group">
+                <label class="control-label col-sm-2">
+                    {{ form.first_name.label }}
+                </label>
+                <div class="col-sm-6">
+                    <input type="text" name="first_name" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">
+                    {{ form.last_name.label }}
+                </label>
+                <div class="col-sm-6">
+                    <input type="text" name="last_name" class="form-control">
+                </div>
+            </div>
+
+            <!-- 性別 -->
+            <div class="form-group">
+                <label class="control-label col-sm-2">
+                    {{ form.gender.label }}
+                </label>
+                <div class="col-sm-6">
+                    <label class="radio-inline"><input type="radio" name="gender" value="male"> male</label>
+                    <label class="radio-inline"><input type="radio" name="gender" value="female"> female</label>
+                </div>
+            </div>
+
+            <!-- 送信ボタン -->
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-6">
+                    <button type="submit" class="btn btn-primary">submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}
